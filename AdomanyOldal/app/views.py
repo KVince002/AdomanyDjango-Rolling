@@ -229,29 +229,34 @@ def gyujtesReszlet(request, gyujtesID):
             print(fizetendo)
             megjegyzes = fizetesElbiralasa.cleaned_data["megjegyzes"]
             print(megjegyzes)
-            # fizetés végrehajtása
+            # szükséges adatok ellenőrzése a vásárláshoz
+            sikeresFizetes= False
             adomanyozoFelh = felhasznalo.objects.get(becenev=request.user.id)
-            adomanyozoFelh.egyenleg -= fizetendo
-            gyujtesTargy = gyujtes.objects.get(id=gyujtesID)
-            gyujtesTargy.jelenleg += fizetendo
-            adomanyGyujto = felhasznalo.objects.get(
-                becenev=gyujtesTargy.publikalo_id)
-            adomanyGyujto.egyenleg += fizetendo
-
-            gyujtesTargy.save()
-            adomanyozoFelh.save()
-            adomanyGyujto.save()
-
-            # fizetés mentése modellba
-            fizetesMentes = fizetes.objects.create(
-                ki=adomanyozoFelh.becenev, gyujtesnek=gyujtes.objects.get(id=gyujtesID), mennyit=fizetendo, megjegyzes=megjegyzes)
-            fizetesMentes.save()
-
-            print(fizetes.id)
-            redirect("kezdolap")
+            if adomanyozoFelh.egyenleg >= fizetendo:
+            # státusz
+                sikeresFizetes = True
+                print(sikeresFizetes)
+            # fizetés végrehajtása
+                adomanyozoFelh.egyenleg -= fizetendo
+                gyujtesTargy = gyujtes.objects.get(id=gyujtesID)
+                gyujtesTargy.jelenleg += fizetendo
+                adomanyGyujto = felhasznalo.objects.get(becenev=gyujtesTargy.publikalo_id)
+                adomanyGyujto.egyenleg += fizetendo
+                #használt modellek mentése
+                gyujtesTargy.save()
+                adomanyozoFelh.save()
+                adomanyGyujto.save()
+                # fizetés mentése modellba
+                fizetesMentes = fizetes.objects.create(ki=adomanyozoFelh.becenev, gyujtesnek=gyujtes.objects.get(id=gyujtesID), mennyit=fizetendo, megjegyzes=megjegyzes)
+                fizetesMentes.save()
+            #ha nem sikerül
+            #TODO else rész befejezése
+            else:
+                sikeresFizetes = False
+                print(sikeresFizetes)
     else:
         fizetesElbiralasa = fizetesForm(request.POST)
-    return render(request, "templates/app/gyujtesReszlet.html", {"cim": "Adok neki! - "+gyujtesReszletek.cim, "gyujtesReszletek": gyujtesReszletek, "form": fizetesElbiralasa})
+    return render(request, "templates/app/gyujtesReszlet.html", {"cim": "Adok neki! - "+gyujtesReszletek.cim, "gyujtesReszletek": gyujtesReszletek, "form": fizetesElbiralasa, "sikeresFizetes":sikeresFizetes})
 
 
 def gyujtesStat(request):
