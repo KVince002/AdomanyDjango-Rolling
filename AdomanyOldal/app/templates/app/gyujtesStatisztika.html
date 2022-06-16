@@ -1,0 +1,76 @@
+{% extends "templates/app/layout.html" %}
+
+{% block content %}
+
+<!-- Oldal tartalma -->
+
+<!-- Be van e jelentkezve ellenőrzés -->
+{% if user.is_authenticated %}
+<h1 id="oldalcim">Üdvözöllek {{felhasznaloAlapertelmezett.first_name}} más néven,
+    {{felhasznaloAlapertelmezett.username}} </h1>
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" id="menu">
+    <a href="{% url 'kijelentkezes'%}" id="kijelentkezes">Kijelentkezés</a>
+    <a href="{%url 'profil'%}" id="ugras">Profilod adatai</a>
+    <a href="{%url 'profilSzerk'%}" id="ugras">Profil szerkesztés</a>
+    <a href="{%url 'egyenlegFel'%}" id="ugras">Egyenleg feltöltés</a>
+    <a href="{%url 'gyujtesStat'%}" id="ugras">Gyűjtés statisztika</a>
+    <a href="{%url 'ujGyujtes'%}" id="ugras">Gyűjtés létrehozása</a>
+</div>
+<div id="oldal_dobozVER">
+    <div id="doboz">
+        {% if fizetes == "Ön még nem adományozott semmilyen célnak eddig."%}
+        <p id="hiba">{{fizetesek}}</p>
+        {%else%}
+        <table>
+            <thead>
+                <th>
+                <td>Gyűjtésnek</td>
+                <td>Összeg (fabatka)</td>
+                <td>Megjegyzés</td>
+                <td>Dátum</td>
+                </th>
+            </thead>
+            <tbody>
+                {%for i in fizetesek%}
+                <tr>
+                    <td>{{i.gyujtesnek}}</td>
+                    <td>{{i.mennyit}}</td>
+                    <td>{{i.megjegyzes}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        {%endif%}
+    </div>
+    <div id="doboz">
+        {% if gyujtesek == "Ön még nem hozott létre egy gyűjtést sem."%}
+        <p id="hiba">{{gyujtesek}}</p>
+        {% else %}
+        <table>
+            <thead>
+                <th>
+                <td>Név</td>
+                <td>Cél</td>
+                <td>Jelenleg</td>
+                </th>
+            </thead>
+            <tbody>
+                {%for i in gyujtesek%}
+                <tr>
+                    <td>{{i.cim}}</td>
+                    <td>{{i.cel}}</td>
+                    <td>{{i.jelenleg}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+        {%endif%}
+    </div>
+</div>
+<!--Ha nincs bejelentkezve-->
+{% else %}
+<p id="alternativValasz">Úgy tűnik, hogy nem vagy bejelentkezve! <a href="{% url 'bejelentkezes' %}">Jelentkezz be</a>
+    az oldal megtekintéséhez!</p>
+{% endif %}
+
+{% endblock %}

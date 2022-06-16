@@ -1,0 +1,41 @@
+{% extends "templates/app/layout.html" %}
+
+{% block content %}
+
+<!-- Oldal tartalma -->
+
+<!-- Be van e jelentkezve ellenőrzés -->
+{% if user.is_authenticated %}
+<h1 id="oldalcim">Üdvözöllek {{felhasznaloAlapertelmezett.first_name}} más néven,
+    {{felhasznaloAlapertelmezett.username}} </h1>
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" id="menu">
+    <a href="{% url 'kijelentkezes'%}" id="kijelentkezes">Kijelentkezés</a>
+    <a href="{%url 'profil'%}" id="ugras">Profilod adatai</a>
+    <a href="{%url 'profilSzerk'%}" id="ugras">Profil szerkesztés</a>
+    <a href="{%url 'egyenlegFel'%}" id="ugras">Egyenleg feltöltés</a>
+    <a href="{%url 'gyujtesStat'%}" id="ugras">Gyűjtés statisztika</a>
+    <a href="{%url 'ujGyujtes'%}" id="ugras">Gyűjtés létrehozása</a>
+</div>
+<div id="doboz" clas="mdl-grid">
+    <table>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form.as_table}}
+            <tr>
+                <td>
+                    A kártya adataidat a személyes adatok védelméjért nem mentjük!
+                </td>
+                <td>
+                    <input type="submit" value="Feltöltés">
+                </td>
+            </tr>
+        </form>
+    </table>
+</div>
+<!--Ha nincs bejelentkezve-->
+{% else %}
+<p id="alternativValasz">Úgy tűnik, hogy nem vagy bejelentkezve! <a href="{% url 'bejelentkezes' %}">Jelentkezz be</a>
+    az oldal megtekintéséhez!</p>
+{% endif %}
+
+{% endblock %}

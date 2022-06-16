@@ -1,0 +1,66 @@
+{% extends "templates/app/layout.html" %}
+
+{% block content %}
+
+<!-- Oldal tartalma -->
+
+<!-- Be van e jelentkezve ellenőrzés -->
+{% if user.is_authenticated %}
+<h1 id="oldalcim">Üdvözöllek {{felhasznaloAlapertelmezett.first_name}} más néven,
+	{{felhasznaloAlapertelmezett.username}} </h1>
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" id="menu">
+	<a href="{% url 'kijelentkezes'%}" id="kijelentkezes">Kijelentkezés</a>
+	<a href="{%url 'profil'%}" id="ugras">Profilod adatai</a>
+	<a href="{%url 'profilSzerk'%}" id="ugras">Profil szerkesztés</a>
+	<a href="{%url 'egyenlegFel'%}" id="ugras">Egyenleg feltöltés</a>
+	<a href="{%url 'gyujtesStat'%}" id="ugras">Gyűjtés statisztika</a>
+	<a href="{%url 'ujGyujtes'%}" id="ugras">Gyűjtés létrehozása</a>
+</div>
+<div id="profilAdat" clas="mdl-grid">
+	<div id="doboz" class="mdl-tabs__panel is active">
+		<h3 id="dobozcim">A profilod adatai</h3>
+		<table class="mdl-data-table mdl-js-data-table">
+			<thead>
+				<th class="mdl-data-table__cell--non-numeric"></th>
+				<th class="mdl-data-table__cell--non-numeric">Jelenlegi érték</th>
+			</thead>
+			<tr>
+				<td class="mdl-data-table__cell--non-numeric">Felhasználó név<br>(nem változtatható meg):</td>
+				<td class="mdl-data-table__cell--non-numeric">{{felhasznaloAlapertelmezett.username}}</td>
+			</tr>
+			<tr>
+				<td class="mdl-data-table__cell--non-numeric">Jelszó</td>
+				<td class="mdl-data-table__cell--non-numeric">Változtassa meg a szerkeztés gombbal.</td>
+			</tr>
+			<tr>
+				<td class="mdl-data-table__cell--non-numeric">E mail:</td>
+				<td class="mdl-data-table__cell--non-numeric">{{felhasznaloAlapertelmezett.email}}</td>
+			</tr>
+			<tr>
+				<td class="mdl-data-table__cell--non-numeric">Előnév:</td>
+				<td class="mdl-data-table__cell--non-numeric">{{felhasznaloAlapertelmezett.first_name}}</td>
+			</tr>
+			<tr>
+				<td class="mdl-data-table__cell--non-numeric">Utónév:</td>
+				<td class="mdl-data-table__cell--non-numeric">{{felhasznaloAlapertelmezett.last_name}}</td>
+			</tr>
+			<tr>
+				<td class="mdl-data-table__cell--non-numeric">Telefonszam</td>
+				<td class="mdl-data-table__cell">{{felhasznaloKiegeszito.telefon}}</td>
+			</tr>
+			<tr>
+				<td class="mdl-data-table__cell--non-numeric">Egyenleg</td>
+				<td class="mdl-data-table__cell"><strong>{{felhasznaloKiegeszito.egyenleg}}</strong></td>
+			</tr>
+			<tbody>
+			</tbody>
+		</table>
+	</div>
+</div>
+<!--Ha nincs bejelentkezve-->
+{% else %}
+<p id="alternativValasz">Úgy tűnik, hogy nem vagy bejelentkezve! <a href="{% url 'bejelentkezes' %}">Jelentkezz be</a>
+	az oldal megtekintéséhez!</p>
+{% endif %}
+
+{% endblock %}

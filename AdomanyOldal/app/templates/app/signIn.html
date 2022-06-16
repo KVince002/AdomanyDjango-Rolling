@@ -1,0 +1,19 @@
+{% extends "templates/app/layout.html" %}
+
+{% block content %}
+
+<!-- Oldal tartalma -->
+<h1 id="Oldali">Bejelentkezés</h1>
+<div id="RegisztralBlokk">
+    <form action="" method="post">
+        <!--felhasználói adatok védelem érdekében -->
+        {% csrf_token %}
+        <!-- Formázás -->
+        {{form.as_p}}
+
+        <button type="submit">Bejelentkezés</button>
+    </form>
+</div>
+
+<p>Ha még nincs fiókja akkor <a href="{% url 'regisztral' %}" id="fiokLink">Regisztráljon</a>!</p>
+{% endblock %}

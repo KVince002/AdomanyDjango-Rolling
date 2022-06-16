@@ -1,0 +1,67 @@
+{% extends "templates/app/layout.html" %}
+
+{% block content %}
+
+<div id="koszonto">
+    <h1 id="oldalcim">{{gyujtesReszletek.cim}}</h1><span id="bejelentkezettFelh">{{gyujtesReszletek.publikalo}}</span>
+</div>
+<!-- Be van e jelentkezve ellenőrzés -->
+{% if user.is_authenticated %}
+<div id="doboz">
+    <div id="leiras">
+        <span>{{gyujtesReszletek.leiras}}</span>
+    </div>
+    <table id="reszletTabla">
+        <thead>
+            <th>Minimum összeg adományozásra</th>
+            <th>Cél</th>
+            <th>Jelnelg állás</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{gyujtesReszletek.minAr}}</td>
+                <td>{{gyujtesReszletek.cel}}</td>
+                <td>{{gyujtesReszletek.jelenleg}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3 id="fizetes">Fizetés</h3>
+    <div id="doboz">
+        <table>
+            <form action="" method="post">
+                {% csrf_token%}
+                {{form.as_table}}
+                <tr>
+                    <td>Készen áll? Ne felejtse, sem nekünk sem gyűjtőnek nem álljogában a vissza utalás!</td>
+                    <td><input type="submit" value="Fizetés"></td>
+                </tr>
+            </form>
+        </table>
+    </div>
+</div>
+<!--Ha nincs bejelentkezve-->
+{% else %}
+<div id="doboz">
+    <div id="leiras">
+        <span>{{gyujtesReszletek.leiras}}</span>
+    </div>
+    <table id="reszletTabla">
+        <thead>
+            <th>Minimum összeg adományozásra</th>
+            <th>Cél</th>
+            <th>Jelnelg állás</th>
+            <th>Adományozáshoz jelenkezzen be!</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{gyujtesReszletek.minAr}}</td>
+                <td>{{gyujtesReszletek.cel}}</td>
+                <td>{{gyujtesReszletek.jelenleg}}</td>
+                <td><a href="{% url 'bejelentkezes' %}"">Bejelentkezés</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% endblock %}

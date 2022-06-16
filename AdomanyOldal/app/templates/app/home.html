@@ -1,0 +1,65 @@
+{% extends "templates/app/layout.html" %}
+
+{% block content %}
+
+<!-- Oldal tartalma -->
+
+
+{% if user.is_authenticated %}
+<div id="koszonto">
+    <h1 id="oldalcim">Kezdőlap</h1><span id="bejelentkezettFelh">Bejelentkzeve mint: {{user.username}}</span>
+</div>
+{% if promos|length > 0 %}
+<h2 id="oldalcim02_Promo">Promóciós</h2>
+<!-- kártyák listája -->
+<div id="kartyak">
+    {%for i in promos%}
+    <div class="kartya" id="{{i.id}}">
+        <h3 class="kartyaCim">{{ i.cim }}</h3>
+        <p>{{ i.leiras }}</p>
+        <a href="{% url 'gyujtes' i.id %}">Megtekintés</a>
+    </div>
+    {%endfor%}
+</div>
+<hr id="elvalaszto">
+{%endif%}
+<!-- kártyák listája -->
+<div id="kartyak">
+    {%for i in atlagos %}
+    <div class="kartya" id="{{i.id}}">
+        <h3 class="kartyaCim">{{ i.cim }}</h3>
+        <p>{{ i.leiras }}</p>
+        <a href="{% url 'gyujtes' i.id %}">Megtekintés</a>
+    </div>
+    {%endfor%}
+</div>
+
+<!-- ha nincs senki sem bejelentkezve-->
+{% else %}
+
+{% if promos|length > 0 %}
+<h2 id="oldalcim02_Promo">Promóciós</h2>
+<!-- kártyák listája -->
+<div id="kartyak">
+    {%for i in promos%}
+    <div class="kartya" id="{{i.id}}">
+        <h3 class="kartyaCim">{{ i.cim }}</h3>
+        <p>{{ i.leiras }}</p>
+        <a href="{% url 'gyujtes' i.id %}">Megtekintés</a>
+    </div>
+    {%endfor%}
+</div>
+<hr id="elvalaszto">
+{%endif%}
+<!-- kártyák listája -->
+<div id="kartyak">
+    {%for i in atlagos %}
+    <div class="kartya" id="{{i.id}}">
+        <h3 class="kartyaCim">{{ i.cim }}</h3>
+        <p>{{ i.leiras }}</p>
+        <a href="{% url 'gyujtes' i.id %}">Megtekintés</a>
+    </div>
+    {%endfor%}
+</div>
+{%endif%}
+{% endblock %}

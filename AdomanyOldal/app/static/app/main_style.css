@@ -1,0 +1,208 @@
+ /* lábléc*/
+.mdl-mini-footer{
+  position:absolute;
+  bottom: 0;
+  width: 100%;
+  height:1rem;
+  background-color: #696969; /* mém szám */
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 10px 1rem;
+}
+.mdl-mini-footer .mdl-logo{
+  line-height: 10px;
+}
+
+/*navigációssáv*/
+.mdl-layout__header{
+  background-color: #420420; /* mém szám */
+}
+
+/* mdl "doboz" */
+.mdl-layout__container{
+    position: fixed;
+  width: 100%;
+  top: 0px;
+}
+
+/* alapértelmezett */
+body{
+  background-color: #696969;
+}
+
+#oldalcim{
+  color: white;
+  font-weight: 700;
+  padding: 10px;
+}
+p{
+  text-align: justify;
+}
+#kezdolapVissza{
+  color: white;
+  text-decoration-line:none;
+}
+#mentes-ugras{
+  color: black;
+  border:solid black;
+  text-decoration-line: none;
+  padding: 5px;
+  background-color: white;
+}
+#doboz{
+  background-color: white;
+  padding: 10px;
+  box-shadow: 5px 5px 5px black;
+}
+#ugras{
+  color: white;
+  text-decoration-line: none;
+}
+.menu{
+  box-shadow: 5px 5px 5px;
+  /*
+  Nem szükséges, mert nem tűnik esztétikusnak
+  border-top: solid;
+  */
+}
+table{
+  /*mdl?*/
+  width:-moz-available
+}
+#menu{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+}
+
+#kartyak{
+  display: flex;
+  flex-direction: row;
+  align-content:space-around;
+  align-items:center;
+  justify-content: center;
+  padding: 5px;
+}
+.kartya{
+  display: flex;
+  flex-direction: column;
+  align-content: space-around;
+  
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 5px 5px;
+  padding: 5px;
+  max-width: 250px;
+  min-width: 250px;
+  max-height: 300px;
+}
+#elvalaszto{
+  color: gray;
+  background-color: gray;
+}
+/* Rólunk */
+#tartalom{
+  background-color: white;
+  padding: 30px;
+  width: 80%;
+  box-shadow: 5px 5px 5px black;
+  position:fixed;
+  top:inherit;
+  height:max-content;
+}
+
+/* regisztáció */
+#RegisztralBlokk{
+  background-color: white;
+  padding: 10px;
+  box-shadow: 5px 5px 5px;
+  width: 80%;
+}
+
+/* profil */
+#profilAdatok{
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 5px 5px;
+}
+#lehetosegek{
+    background-color: white;
+  border-radius: 5px;
+  box-shadow: 5px 5px;
+}
+#dobozcim{
+  padding: 5px 5px 0px;
+}
+#segitseg{
+  padding: 0 5px;
+}
+.menu{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: center;
+  justify-content: space-evenly;
+}
+#kijelentkezes{
+  color: white;
+  padding: 10px;
+}
+
+/* Profil szerkesztés */
+.SpecialSzerk{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-evenly;
+  align-content: space-around;
+}
+
+/* kezdőlap */
+#oldalcim02_Promo{
+  padding: 0px 0px 5px 5px;
+  font-style: italic;
+  color: white;
+}
+#koszonto{
+  display: flex;
+  align-content: center;
+  align-items:baseline;
+  flex-direction:row;
+}
+#bejelentkezettFelh{
+  color: white;
+  font-size: 20px;
+  padding: 0 0 0 5px;
+}
+
+/* gyűjtés statisztika*/
+#oldal_dobozVER{
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  justify-content: space-evenly;
+  align-content: safe;
+  padding: 5px;
+}
+#oldal_dobozVER #doboz{
+  width: 49%;
+}
+
+@media screen and (max-width: 600px){
+  #koszonto{
+  display: flex;
+  align-content: center;
+  align-items:baseline;
+  flex-direction:column;
+  }
+  #kartyak{
+  display: flex;
+  flex-direction: column;
+  align-content:space-around;
+  align-items:center;
+  justify-content: center;
+  padding: 5px;
+  width: 100%;
+  }
+}
