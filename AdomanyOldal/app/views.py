@@ -5,7 +5,7 @@ from re import template
 from urllib.request import Request
 import django
 from django.shortcuts import render, redirect
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 # W3Schools szerint
 from django.template import loader
 # regisztálás form
@@ -237,7 +237,7 @@ def gyujtesReszlet(request, gyujtesID):
             gyujtesTargy = gyujtes.objects.get(id=gyujtesID)
 
             # *Itt kerül ellenőrzés alá hogy megfele-e minden szükséges paraméter a fizetéshez
-            if adomanyozoFelh.egyenleg >= fizetendo & gyujtesTargy.minAr <= fizetendo:
+            if adomanyozoFelh.egyenleg >= fizetendo and gyujtesTargy.minAr <= fizetendo:
                 # státusz
                 sikeresFizetes = True
                 print(sikeresFizetes)
@@ -256,13 +256,13 @@ def gyujtesReszlet(request, gyujtesID):
                     id=gyujtesID), mennyit=fizetendo, megjegyzes=megjegyzes)
                 fizetesMentes.save()
                 sikeresFizetes = True
-                redirect()
+                return redirect("home")
 
             # ha nem sikerül, ekkor nem fog mentésre kerülnid
             # TODO else rész befejezése
             else:
                 sikeresFizetes = False
-                print(sikeresFizetes)
+                return HttpResponse("A vásárlásod sikertelen! Előfordulhat nem volt elég egyenleged vagy a minimumnél kevesebbet adományoztál! Lépj vissza é Próbált újra!")
     else:
         fizetesElbiralasa = fizetesForm(request.POST)
     return render(request, "templates/app/gyujtesReszlet.html", {"cim": "Adok neki! - "+gyujtesReszletek.cim, "gyujtesReszletek": gyujtesReszletek, "form": fizetesElbiralasa})
