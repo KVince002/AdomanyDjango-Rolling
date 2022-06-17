@@ -214,8 +214,9 @@ def gyujtesStat(request):
     return render(request, "templates/app/gyujtesStat.html", {"cim": "Adok neki! - Egyenleg feltöltés", "FelhasznaloAlapertelmezett": FelhasznaloAlapertelmezett})
 
 
-def gyujtesReszlet(request, gyujtesID):
+def gyujtesReszlet(request, gyujtesID, sikeres):
     print(f"gyujtesReszlet pramétere: {gyujtesID}")
+    print(f"gyujtesReszlet pramétere, fizetés sikeres?: {sikeres}")
     gyujtesID = gyujtesID
     print(f"gyujtesReszlet paramétere utólag: {gyujtesID}")
     gyujtesReszletek = gyujtes.objects.get(id=gyujtesID)
@@ -249,7 +250,7 @@ def gyujtesReszlet(request, gyujtesID):
                 # fizetés mentése modellba
                 fizetesMentes = fizetes.objects.create(ki=adomanyozoFelh.becenev, gyujtesnek=gyujtes.objects.get(id=gyujtesID), mennyit=fizetendo, megjegyzes=megjegyzes)
                 fizetesMentes.save()
-            #ha nem sikerül, ekkor nem fog mentésre kerülni
+            #ha nem sikerül, ekkor nem fog mentésre kerülnid
             #TODO else rész befejezése
             else:
                 sikeresFizetes = False
