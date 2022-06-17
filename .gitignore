@@ -1,2 +1,16 @@
 # Project exclude paths
 /env/
+AdomanyOldal/.idea/.gitignore
+AdomanyOldal/.idea/AdomanyOldal.iml
+AdomanyOldal/.idea/discord.xml
+AdomanyOldal/.idea/misc.xml
+AdomanyOldal/.idea/modules.xml
+AdomanyOldal/.idea/codeStyles/codeStyleConfig.xml
+AdomanyOldal/.idea/dictionaries/Vincent.xml
+AdomanyOldal/.idea/inspectionProfiles/profiles_settings.xml
+.idea/.gitignore
+.idea/AdomanyDjango-AdomanyMentes_ManjaroLinux_0616.iml
+.idea/discord.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/inspectionProfiles/profiles_settings.xml
