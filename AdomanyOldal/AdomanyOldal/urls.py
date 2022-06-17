@@ -31,8 +31,10 @@ urlpatterns = [
     path("szerk", views.profilSzerk, name="profilSzerk"),
     path("egyenlegFel", views.egyenlegFel, name="egyenlegFel"),
     path("ujGyujtes", views.ujGyujtes, name="ujGyujtes"),
-    path("gyujtes/<int:gyujtesID>/<string:sikeres>/", views.gyujtesReszlet, name="gyujtes"),
+    path("gyujtes/<int:gyujtesID>/",
+         views.gyujtesReszlet, name="gyujtes"),
     path("gyujtesStat/", views.gyujtesStat, name="gyujtesStat"),
+    # path("fizetesVisszaJel/<int:gyujtesID>/<bool:sikeresFizetes>")
     path("kijelentkezes/", views.logout_request, name="kijelentkezes"),
     path('admin/', admin.site.urls),
 

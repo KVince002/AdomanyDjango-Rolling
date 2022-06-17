@@ -214,9 +214,8 @@ def gyujtesStat(request):
     return render(request, "templates/app/gyujtesStat.html", {"cim": "Adok neki! - Egyenleg feltöltés", "FelhasznaloAlapertelmezett": FelhasznaloAlapertelmezett})
 
 
-def gyujtesReszlet(request, gyujtesID, sikeres):
+def gyujtesReszlet(request, gyujtesID):
     print(f"gyujtesReszlet pramétere: {gyujtesID}")
-    print(f"gyujtesReszlet pramétere, fizetés sikeres?: {sikeres}")
     gyujtesID = gyujtesID
     print(f"gyujtesReszlet paramétere utólag: {gyujtesID}")
     gyujtesReszletek = gyujtes.objects.get(id=gyujtesID)
@@ -226,32 +225,41 @@ def gyujtesReszlet(request, gyujtesID, sikeres):
         fizetesElbiralasa = fizetesForm(request.POST)
         if fizetesElbiralasa.is_valid():
             # form elemek mentése
+            # amennyit szeretne fizetni
             fizetendo = fizetesElbiralasa.cleaned_data["osszeg"]
             print(fizetendo)
+            # ott hagyott megjegyzés
             megjegyzes = fizetesElbiralasa.cleaned_data["megjegyzes"]
             print(megjegyzes)
             # szükséges adatok ellenőrzése a vásárláshoz
-            sikeresFizetes= False
+            sikeresFizetes = False
             adomanyozoFelh = felhasznalo.objects.get(becenev=request.user.id)
-            if adomanyozoFelh.egyenleg >= fizetendo:
-            # státusz
+            gyujtesTargy = gyujtes.objects.get(id=gyujtesID)
+
+            # *Itt kerül ellenőrzés alá hogy megfele-e minden szükséges paraméter a fizetéshez
+            if adomanyozoFelh.egyenleg >= fizetendo & gyujtesTargy.minAr <= fizetendo:
+                # státusz
                 sikeresFizetes = True
                 print(sikeresFizetes)
             # fizetés végrehajtása
                 adomanyozoFelh.egyenleg -= fizetendo
-                gyujtesTargy = gyujtes.objects.get(id=gyujtesID)
                 gyujtesTargy.jelenleg += fizetendo
-                adomanyGyujto = felhasznalo.objects.get(becenev=gyujtesTargy.publikalo_id)
+                adomanyGyujto = felhasznalo.objects.get(
+                    becenev=gyujtesTargy.publikalo_id)
                 adomanyGyujto.egyenleg += fizetendo
-                #használt modellek mentése
+                # használt modellek mentése
                 gyujtesTargy.save()
                 adomanyozoFelh.save()
                 adomanyGyujto.save()
                 # fizetés mentése modellba
-                fizetesMentes = fizetes.objects.create(ki=adomanyozoFelh.becenev, gyujtesnek=gyujtes.objects.get(id=gyujtesID), mennyit=fizetendo, megjegyzes=megjegyzes)
+                fizetesMentes = fizetes.objects.create(ki=adomanyozoFelh.becenev, gyujtesnek=gyujtes.objects.get(
+                    id=gyujtesID), mennyit=fizetendo, megjegyzes=megjegyzes)
                 fizetesMentes.save()
-            #ha nem sikerül, ekkor nem fog mentésre kerülnid
-            #TODO else rész befejezése
+                sikeresFizetes = True
+                redirect()
+
+            # ha nem sikerül, ekkor nem fog mentésre kerülnid
+            # TODO else rész befejezése
             else:
                 sikeresFizetes = False
                 print(sikeresFizetes)

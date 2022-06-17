@@ -1,0 +1,13 @@
+{% extends "templates/app/layout.html" %}
+
+{% block content %}
+
+<div id="koszonto">
+    <h1 id="oldalcim">{{gyujtesReszletek.cim}}</h1><span id="bejelentkezettFelh">{{gyujtesReszletek.publikalo}}</span>
+</div>
+<!-- Be van e jelentkezve ellenőrzés -->
+{% if user.is_authenticated %}
+
+{% endif %}
+
+{% endblock %}
