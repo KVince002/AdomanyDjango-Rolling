@@ -249,14 +249,14 @@ def gyujtesReszlet(request, gyujtesID):
                 # fizetés mentése modellba
                 fizetesMentes = fizetes.objects.create(ki=adomanyozoFelh.becenev, gyujtesnek=gyujtes.objects.get(id=gyujtesID), mennyit=fizetendo, megjegyzes=megjegyzes)
                 fizetesMentes.save()
-            #ha nem sikerül
+            #ha nem sikerül, ekkor nem fog mentésre kerülni
             #TODO else rész befejezése
             else:
                 sikeresFizetes = False
                 print(sikeresFizetes)
     else:
         fizetesElbiralasa = fizetesForm(request.POST)
-    return render(request, "templates/app/gyujtesReszlet.html", {"cim": "Adok neki! - "+gyujtesReszletek.cim, "gyujtesReszletek": gyujtesReszletek, "form": fizetesElbiralasa, "sikeresFizetes":sikeresFizetes})
+    return render(request, "templates/app/gyujtesReszlet.html", {"cim": "Adok neki! - "+gyujtesReszletek.cim, "gyujtesReszletek": gyujtesReszletek, "form": fizetesElbiralasa})
 
 
 def gyujtesStat(request):
