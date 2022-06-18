@@ -2,6 +2,7 @@ from pyexpat import model
 from django.conf import settings
 from django.db import models
 from django.forms import CharField
+from tomlkit import date, datetime
 # from requests import request
 
 # Create your models here.
@@ -37,8 +38,11 @@ class gyujtes(models.Model):
     promocios = models.BooleanField(default=False)
     minAr = models.IntegerField(null=False)
     cel = models.IntegerField()
-    #utólagos kiegészítés
-    jelenleg= models.IntegerField(default=0)
+    # utólagos kiegészítés
+    jelenleg = models.IntegerField(default=0)
+    # dátum és idő hozzáadása
+    datum = models.DateField(default=date.today)
+    ido = models.TimeField(default=datetime.time.now)
 
     class Meta:
         ordering = ["id"]
@@ -46,13 +50,17 @@ class gyujtes(models.Model):
     def __str__(self) -> str:
         return super().__str__()
 
-#még csak teszt gondolat
+# még csak teszt gondolat
 # 2:30 de már benne is lesz
+
+
 class fizetes(models.Model):
     ki = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     gyujtesnek = models.ForeignKey(gyujtes, on_delete=models.CASCADE)
     mennyit = models.IntegerField()
     megjegyzes = models.CharField(null=True, max_length=255)
+    datum = models.DateField(default=date.today)
+    ido = models.TimeField(default=datetime.time.now)
 
     class Meta:
         ordering = ["id"]
