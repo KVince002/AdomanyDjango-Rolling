@@ -43,6 +43,8 @@ class gyujtes(models.Model):
     # dátum és idő hozzáadása
     datum = models.DateField(default=date.today())
     ido = models.TimeField(default=datetime.now().time())
+    # cel datum és idő hozzáadása
+    celDatum = models.DateTimeField(null=True)
 
     class Meta:
         ordering = ["id"]

@@ -289,6 +289,8 @@ def gyujtesReszlet(request, gyujtesID):
                 return HttpResponse("A vásárlásod sikertelen! Előfordulhat nem volt elég egyenleged vagy a minimumnél kevesebbet adományoztál! Lépj vissza é Próbált újra!")
     else:
         fizetesElbiralasa = fizetesForm(request.POST)
+    # elérte e a célját ellenőrzés
+    elerteCel_EXT(gyujtesReszletek.id)
     return render(request, "templates/app/gyujtesReszlet.html", {"cim": "Adok neki! - "+gyujtesReszletek.cim, "gyujtesReszletek": gyujtesReszletek, "form": fizetesElbiralasa})
 
 
@@ -321,3 +323,17 @@ def gyujtesStat(request):
         print(gyujtesek)
         print(len(gyujtesek))
     return render(request, "templates/app/gyujtesStatisztika.html", {"cim": "Adok neki! - Gyűjtés és fizetés statisztikák", "fizetesek": fizetesek, "gyujtesek": gyujtesek})
+
+# * Az "EXT" függvényeket meghívásra vannak létrehozva
+
+
+def elerteCel_EXT(cel):
+    print("elérte e gyűjtés a célját?")
+    gyujtesEll = gyujtes.objects.get(id=cel)
+    if gyujtesEll.cel <= gyujtesEll.jelenleg:
+        print("Igen")
+        jelenlegiDatum = datetime.now()
+        gyujtesEll.celDatum = jelenlegiDatum
+        gyujtesEll.save()
+    else:
+        print("Nem")
