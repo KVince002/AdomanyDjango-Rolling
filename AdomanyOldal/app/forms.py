@@ -105,7 +105,8 @@ class gyujtesForm(ModelForm):
     cim = forms.CharField(label="Cim")
     leiras = forms.CharField(widget=forms.Textarea,
                              label="Adjon meg egy részletes leírást")
-    promocios = forms.BooleanField(label="Promótálja-e (200)?", required=False)
+    promocios = forms.BooleanField(
+        label="Promótálja-e?", required=False, help_text="Ez az összeg a 0,25x-orosa amegadott célnak!")
     minAr = forms.IntegerField(
         label="Adjon meg hogy mennyit lehet minimum adományozni", min_value=1)
     cel = forms.IntegerField(

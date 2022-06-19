@@ -25,6 +25,7 @@ from app.forms import Regisztralas, bankkartya, felhasznaloFrissitForm, gyujtesF
 from app.models import felhasznalo, fizetes, gyujtes
 # fizetéshez
 from app.forms import fizetesForm
+from datetime import datetime, time, date
 
 # Create your views here.
 
@@ -186,16 +187,39 @@ def ujGyujtes(request):
             # dictionry létrehozása, tárolásra
             AdatokDic = {"Cim": cim, "Leiras": leiras,
                          "Promo": promocio, "MinAr": minAr, "Cel": cel}
-            # ha nincs elég egyenlege akkor ne lehessen promóciós gyűjtést létrehozni
-            if AdatokDic.get("Promo") >= felhasznaloModel.egyenleg:
-                # promocios ár levonása
-                felhasznaloModel.egyenleg-200
+            for i, j in AdatokDic.items():
+                print(i, j)
+            # prómócó ellenőrzés
+            print(f"prómó ellenőrzés")
+            # promocios ár levonása
+            levonas = AdatokDic.get("Cel")
+            levonasSeged = levonas*0.25
+            print(f"amit le fog vonni (levonasSeged): {levonasSeged}")
+            # ha van elég egyenlege akkor lehessen promóciós gyűjtést létrehozni
+            if levonasSeged <= felhasznaloModel.egyenleg and AdatokDic.get("Promo") == True:
+                print(f"promóciós")
+                felhasznaloEgyenleg = felhasznaloModel.egyenleg
+                levonasEredmeny = felhasznaloEgyenleg-levonasSeged
+                felhasznaloModel.egyenleg = levonasEredmeny
                 felhasznaloModel.save()
                 # mentés
                 UjGyujtesSeged = UjGyujtes.save(commit=False)
                 UjGyujtesSeged.publikalo = request.user
                 UjGyujtesSeged.save()
+                # fizetés mentése
+                promoFizetes = fizetes.objects.create(
+                    ki=User.objects.get(id=request.user.id), gyujtesnek=gyujtes.objects.get(id=10), mennyit=levonasSeged, megjegyzes="Promóciós összeg levonása", datum=date.today(), ido=datetime.now().time())
+                promoFizetes.save()
+                # Adomány oldal gyűjtésének frissítése
+                AdomanyOldalGyujtesFrissites = gyujtes.objects.get(id=10)
+                AOGyF_seged = AdomanyOldalGyujtesFrissites.jelenleg
+                AOGyF_eredmeny = AOGyF_seged + levonasSeged
+                print(f"Adomány oldal gyűjtésének új értéke: {AOGyF_eredmeny}")
+                AdomanyOldalGyujtesFrissites.jelenleg = AOGyF_eredmeny
+                AdomanyOldalGyujtesFrissites.save()
+
             else:
+                print(f"nem prómóciós")
                 UjGyujtesSeged = gyujtes.objects.create(publikalo=User.objects.get(id=request.user.id), cim=AdatokDic.get(
                     "Cim"), leiras=AdatokDic.get("Leiras"), promocios=False, minAr=AdatokDic.get("MinAr"), cel=AdatokDic.get("Cel"))
                 UjGyujtesSeged.save()
