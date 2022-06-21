@@ -1,4 +1,4 @@
-{% extends "templates/app/layout.html" %}
+{% extends "templates/app/layout_Profil.html" %}
 
 {% block content %}
 
@@ -7,14 +7,7 @@
 <!-- Be van e jelentkezve ellenőrzés -->
 {% if user.is_authenticated %}
 <h1 id="oldalcim">Üdvözöllek {{felhasznalo.first_name}} más néven, {{felhasznalo.username}} </h1>
-<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" id="menu">
-    <a href="{% url 'kijelentkezes'%}" id="kijelentkezes">Kijelentkezés</a>
-    <a href="{%url 'profil'%}" id="ugras">Profilod adatai</a>
-    <a href="{%url 'profilSzerk'%}" id="ugras">Profil szerkesztés</a>
-    <a href="{%url 'egyenlegFel'%}" id="ugras">Egyenleg feltöltés</a>
-    <a href="{%url 'gyujtesStat'%}" id="ugras">Gyűjtés statisztika</a>
-    <a href="{%url 'ujGyujtes'%}" id="ugras">Gyűjtés létrehozása</a>
-</div>
+<!-- mdl-tabs mostnár layout-->>
 <div id="oldal" clas="mdl-grid" class="SpecialSzerk">
     <div id="doboz">
         <div id="hibatortent">
