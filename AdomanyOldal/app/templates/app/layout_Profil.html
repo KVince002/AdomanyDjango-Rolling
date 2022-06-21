@@ -1,0 +1,76 @@
+<!-- Ez a példa a Microsoft Visual Studio 2022 Django web projektből nézve -->
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ cim }}</title>
+
+    {% load static %}
+    <!-- mdl hozzávalók -->
+    <link href="{% static 'mdl/material.min.css' %}" rel="stylesheet">
+
+    {% load static %}
+    <!-- saját css -->
+    <link rel="stylesheet" href="{% static 'main_style.css' %}">
+</head>
+
+<body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <header class="mdl-layout__header">
+            <div class="mdl-layout__header-row">
+                <span class="mdl-layout-title"><a href="{% url 'kezdolap' %}" id="kezdolapVissza">Adok neki!</a></span>
+
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="{% url 'rolunk' %}">Rólunk</a>
+                    <div class="mdl-layout-spacer"></div>
+                    <!-- be van e jelentkezve-->
+                    {% if user.is_authenticated%}
+                    <a href="{% url 'profil'%}" class="mdl-navigation__link">Profl</a>
+                    <a href="{% url 'kijelentkezes'%}" class="mdl-navigation__link">Kijelentkezés</a>
+                    {%else%}
+                    <a href="{% url 'bejelentkezes' %}" class="mdl-navigation__link">Bejelentkezés</a>
+                    {%endif%}
+                </nav>
+            </div>
+        </header>
+        <div class="mdl-layout__drawer">
+            <span class="mdl-layout-title">Adok neki!</span>
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="{% url 'rolunk' %}">Rólunk</a>
+                <!-- be van e jelentkezve-->
+                {% if user.is_authenticated%}
+                <a href="{% url 'profil'%}" class="mdl-navigation__link">Profl</a>
+                <a href="{% url 'kijelentkezes'%}" class="mdl-navigation__link">Kijelentkezés</a>
+                {%else%}
+                <a href="{% url 'bejelentkezes' %}" class="mdl-navigation__link">Bejelentkezés</a>
+                {%endif%}
+            </nav>
+        </div>
+        <main class="mdl-layout__content">
+            <div class="page-content">
+                <div>
+                    <!-- profil beillesztése -->
+                    <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect" id="menu">
+                        <a href="{% url 'kijelentkezes'%}" id="kijelentkezes">Kijelentkezés</a>
+                        <a href="{%url 'profil'%}" id="ugras">Profilod adatai</a>
+                        <a href="{%url 'profilSzerk'%}" id="ugras">Profil szerkesztés</a>
+                        <a href="{%url 'egyenlegFel'%}" id="ugras">Egyenleg feltöltés</a>
+                        <a href="{%url 'gyujtesStat'%}" id="ugras">Gyűjtés statisztika</a>
+                        <a href="{%url 'ujGyujtes'%}" id="ugras">Gyűjtés létrehozása</a>
+                    </div>
+                    <!-- oldal tartalma -->
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- mdl <script></script> -->
+    <script src="{% static 'mdl/material.min.js' %}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+
+</html>
