@@ -3,15 +3,26 @@
 <nav class="navbar navbar-expand-lg bg-primary">
     <div class="container-fluid">
         <a href="{% url 'kezdolap' %}" id="kezdolapVissza" class="navbar-brand">Adok neki!</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-colapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
             {% if user.is_authenticated%}
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="{% url 'profil'%}" class="mdl-navigation__link">{{UserModel.username}}</a>
+                </li>
+                <li class="navbar-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Tevékenységek</a>               
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <li><a href="{% url 'kijelentkezes'%}" id="kijelentkezes">Kijelentkezés</a></li>
+                        <li><a href="{%url 'profil'%}" id="ugras" class="dropdown-item">Profilod adatai</a></li>
+                        <li><a href="{%url 'profilSzerk'%}" id="ugras" class="dropdown-item">Profil szerkesztés</a></li>
+                        <li><a href="{%url 'egyenlegFel'%}" id="ugras" class="dropdown-item">Egyenleg feltöltés</a></li>
+                        <li><a href="{%url 'gyujtesStat'%}" id="ugras" class="dropdown-item">Gyűjtés statisztika</a></li>
+                        <li><a href="{%url 'ujGyujtes'%}" id="ugras" class="dropdown-item">Gyűjtés létrehozása</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{% url 'kijelentkezes'%}" class="mdl-navigation__link">Kijelentkezés</a>
