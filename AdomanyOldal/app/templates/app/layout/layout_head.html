@@ -12,16 +12,18 @@
     <link href="{% static 'mdl/material.min.css' %}" rel="stylesheet">
     {% load static %}
     <!-- Bootstrap 5.2 css -->
-    <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-beta1-dist/css/bootstrap-grid.min.css'%}">
+    <link rel="stylesheet" href="{% static 'bootstrap-5.2.0-beta1-dist/css/bootstrapgrid.min.css'%}">
 
     {% load static %}
     <!-- saját css -->
     <link rel="stylesheet" href="{% static 'main_style.css' %}">
 </head>
 <body>
-{% block content %}
+{% block navbar %}
 
 {% endblock %}
+{% block content%}
+{%endblock%}
 <!-- mdl script -->
 <script src="{% static 'mdl/material.min.js'%}"></script>
 <!-- Bootstrap 5.2 script -->
