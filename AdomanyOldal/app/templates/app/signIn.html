@@ -6,12 +6,19 @@
 <h1 id="Oldali">Bejelentkezés</h1>
 <div id="RegisztralBlokk">
     <form action="" method="post">
+        <table>
         <!--felhasználói adatok védelem érdekében -->
         {% csrf_token %}
         <!-- Formázás -->
-        {{form.as_p}}
-
-        <button type="submit">Bejelentkezés</button>
+        {{form.as_table}}
+        <tr>
+            <td>
+            </td>
+            <td>
+                <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Bejelentkezés</button>
+            </td>
+        </tr>
+    </table>
     </form>
 </div>
 
