@@ -21,8 +21,6 @@ from app.models import felhasznalo, gyujtes
 class Regisztralas(UserCreationForm):
     username = forms.CharField(
         label="Felhasználónév", min_length=3, max_length=150)
-    # first_name = forms.CharField(label="Előnév")
-    # last_name = forms.CharField(label="Utónév")
     email = forms.EmailField(label="Email cím")
     password1 = forms.CharField(label="Jelszava", widget=forms.PasswordInput)
     password2 = forms.CharField(
@@ -69,6 +67,11 @@ class Regisztralas(UserCreationForm):
         )
         return user
 
+    def __init__(self, *args, **kwargs) -> None:
+        super(Regisztralas, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "form-control"
+
 
 class felhasznaloFrissitForm(forms.ModelForm):
     class Meta:
@@ -81,6 +84,11 @@ class felhasznaloFrissitForm(forms.ModelForm):
         label="Jelszava", widget=forms.PasswordInput, required=False)
     password2 = forms.CharField(
         label="Jelszava még egyszer", widget=forms.PasswordInput, required=False)
+
+    def __init__(self, *args, **kwargs) -> None:
+        super(felhasznaloFrissitForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "form-control"
 
     def __str__(self) -> str:
         return super().__str__()
@@ -112,6 +120,11 @@ class gyujtesForm(ModelForm):
     cel = forms.IntegerField(
         label="Mennyit szeretne elérni a gyűjtésével?", min_value=1)
 
+    def __init__(self, *args, **kwargs) -> None:
+        super(gyujtesForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "form-control"
+
     def __str__(self) -> str:
         return super().__str__()
 
@@ -127,9 +140,19 @@ class bankkartya(forms.Form):
         required=True, label="Biztonsági szám", max_length=3)
     osszeg = forms.IntegerField(required=True)
 
+    def __init__(self, *args, **kwargs) -> None:
+        super(bankkartya, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "form-control"
+
 # pénz adományozás
 
 
 class fizetesForm(forms.Form):
     osszeg = forms.IntegerField(required=True)
     megjegyzes = forms.CharField(required=False, max_length=254)
+
+    def __init__(self, *args, **kwargs) -> None:
+        super(fizetesForm, self).__init__(*args, **kwargs)
+        for visible in self.visible_fields():
+            visible.field.widget.attrs["class"] = "form-control"
