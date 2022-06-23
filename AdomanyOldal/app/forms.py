@@ -39,14 +39,6 @@ class Regisztralas(UserCreationForm):
         if keres.count():
             raise ValidationError("Ez az email már létezik!")
         return email
-
-    def clean_firstname(self):
-        first_name = self.cleaned_data["first_name"].lower()
-        return first_name
-
-    def clean_lastname(self):
-        last_name = self.cleaned_data["last_name"].lower()
-        return last_name
     # ezzel lehet ellenőrizni hogy a két jelszó mező egyezik-e
 
     def clean_jelszomegint(self):
@@ -60,9 +52,6 @@ class Regisztralas(UserCreationForm):
         user = User.objects.create_user(
             self.cleaned_data['username'],
             self.cleaned_data["email"],
-            #! ezek szerint nem így kell hozzáadni
-            # self.cleaned_data["first_name"],
-            # self.cleaned_data["last_name"],
             self.cleaned_data["password2"],
         )
         return user
@@ -92,15 +81,6 @@ class felhasznaloFrissitForm(forms.ModelForm):
 
     def __str__(self) -> str:
         return super().__str__()
-
-    # def mentes(self, commit=True):
-    #     user = User.objects.get(id=request.user.id).update(
-    #         self.cleaned_data.get["email"],
-    #         self.cleaned_data.get["first_name"],
-    #         self.cleaned_data.get["last_name"],
-    #         self.cleaned_data.get["password2"],
-    #     )
-    #     return user
 
 # gyűjtés model form
 

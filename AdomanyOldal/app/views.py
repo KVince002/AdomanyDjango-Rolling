@@ -97,6 +97,7 @@ def bejelentkezes(request):
                 messages.error(
                     request, F"Sikertelen bejelentkezés, előfordulhat, hogy rossz a jelszót adhatott meg!")
     beUrlap = AuthenticationForm()
+    print(messages)
     return render(request, "templates/app/signIn.html", context={"cim": "Adok neki! - Bejelentkezés", "form": beUrlap})
 
 

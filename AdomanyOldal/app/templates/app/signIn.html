@@ -18,6 +18,13 @@
                 <button type="submit" class="mdl-button mdl-js-button mdl-button--raised">Bejelentkezés</button>
             </td>
         </tr>
+        {% if messages %}
+        <tr>
+            {% for message in messages %}
+            <td>{{message.error}}</td>
+            {% endfor %}
+        </tr>
+        {% endif %}
     </table>
     </form>
 </div>
