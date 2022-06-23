@@ -13,19 +13,13 @@
                 <li class="nav-item">
                     <a href="{% url 'profil'%}" class="mdl-navigation__link">{{UserModel.username}}</a>
                 </li>
-                <li class="navbar-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false" >Tevékenységek</a>               
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li><a href="{% url 'kijelentkezes'%}" id="kijelentkezes">Kijelentkezés</a></li>
-                        <li><a href="{%url 'profil'%}" id="ugras" class="dropdown-item">Profilod adatai</a></li>
-                        <li><a href="{%url 'profilSzerk'%}" id="ugras" class="dropdown-item">Profil szerkesztés</a></li>
-                        <li><a href="{%url 'egyenlegFel'%}" id="ugras" class="dropdown-item">Egyenleg feltöltés</a></li>
-                        <li><a href="{%url 'gyujtesStat'%}" id="ugras" class="dropdown-item">Gyűjtés statisztika</a></li>
-                        <li><a href="{%url 'ujGyujtes'%}" id="ugras" class="dropdown-item">Gyűjtés létrehozása</a></li>
-                    </ul>
-                </li>
+                <li><a href="{%url 'profil'%}" id="ugras" class="nav-item">Profilod adatai</a></li>
+                <li><a href="{%url 'profilSzerk'%}" id="ugras" class="nav-item">Profil szerkesztés</a></li>
+                <li><a href="{%url 'egyenlegFel'%}" id="ugras" class="nav-item">Egyenleg feltöltés</a></li>
+                <li><a href="{%url 'gyujtesStat'%}" id="ugras" class="nav-item">Gyűjtés statisztika</a></li>
+                <li><a href="{%url 'ujGyujtes'%}" id="ugras" class="nav-item">Gyűjtés létrehozása</a></li>
                 <li>
-                    <a href="{% url 'kijelentkezes'%}" class="mdl-navigation__link">Kijelentkezés</a>
+                    <a href="{% url 'kijelentkezes'%}" class="mdl-navigation__link nav-item">Kijelentkezés</a>
                 </li>
             </ul>
             {%else%}
