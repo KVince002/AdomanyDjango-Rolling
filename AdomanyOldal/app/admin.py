@@ -5,7 +5,7 @@ from .models import felhasznalo, gyujtes, fizetes
 
 
 class felhasznaloAdmin(admin.ModelAdmin):
-    fields = ["becenev", "telefon", "egyenleg"]
+    fields = ["becenev", "egyenleg"]
 
 
 class gyujtesAdmin(admin.ModelAdmin):

@@ -12,14 +12,7 @@ class felhasznalo(models.Model):
     # ? jobbesetben megkapja
     becenev = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    telefon = models.CharField(max_length=11)
     egyenleg = models.IntegerField(default=0)
-    #! kivéve biztonság miatt
-    # bankkartyaSzam = models.CharField(max_length=11)
-    # bankkartyaTulaj = models.CharField(max_length=255)
-    # # biztonsági okokból 4
-    # bankkartyaCV = models.CharField(max_length=4)
-    # bankkartyaLejar = models.CharField(max_length=4)
 
     class Meta:
         ordering = ["id"]
