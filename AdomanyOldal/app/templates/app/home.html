@@ -4,11 +4,11 @@
 
 <!-- Oldal tartalma -->
 
+<div id="koszonto">
+    <h1 id="oldalcim">Kezdőlap</h1>
+</div>
 
 {% if user.is_authenticated %}
-<div id="koszonto">
-    <h1 id="oldalcim">Kezdőlap</h1><span id="bejelentkezettFelh">Bejelentkzeve mint: {{user.username}}</span>
-</div>
 {% if promos|length > 0 %}
 <h2 id="oldalcim02_Promo">Promóciós</h2>
 <!-- kártyák listája -->

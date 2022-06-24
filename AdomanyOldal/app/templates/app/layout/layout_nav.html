@@ -13,7 +13,7 @@
                 <li class="nav-item">
                     <a href="{% url 'profil'%}" class="mdl-navigation__link">{{UserModel.username}}</a>
                 </li>
-                <li><a href="{%url 'profil'%}" id="ugras" class="nav-item">Profilod adatai</a></li>
+                <li><a href="{%url 'profil'%}" id="ugras" class="nav-item">Üdv {{request.user.username}}!</a></li>
                 <li><a href="{%url 'profilSzerk'%}" id="ugras" class="nav-item">Profil szerkesztés</a></li>
                 <li><a href="{%url 'egyenlegFel'%}" id="ugras" class="nav-item">Egyenleg feltöltés</a></li>
                 <li><a href="{%url 'gyujtesStat'%}" id="ugras" class="nav-item">Gyűjtés statisztika</a></li>
