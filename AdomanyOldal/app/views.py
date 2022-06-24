@@ -1,5 +1,6 @@
 from ast import If
 import email
+from email import message
 from pyexpat.errors import messages
 from re import template
 from urllib.request import Request
@@ -26,6 +27,8 @@ from app.models import felhasznalo, fizetes, gyujtes
 # fizetéshez
 from app.forms import fizetesForm
 from datetime import datetime, time, date
+#üzenetekhez (messages)
+from django.contrib import messages
 
 # Create your views here.
 
@@ -94,8 +97,9 @@ def bejelentkezes(request):
                 # továbbítás
                 return redirect("profil")
             else:
+                print("nem sikerüt bejelentkezni")
                 messages.error(
-                    request, F"Sikertelen bejelentkezés, előfordulhat, hogy rossz a jelszót adhatott meg!")
+                    request, f"Sikeretelen bejelentkezés! Előfordulat hogy hibás felhasnáló nevet vagy jelszót adott meg!")
     beUrlap = AuthenticationForm()
     print(messages)
     return render(request, "templates/app/signIn.html", context={"cim": "Adok neki! - Bejelentkezés", "form": beUrlap})
