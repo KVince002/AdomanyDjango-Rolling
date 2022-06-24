@@ -1,8 +1,11 @@
 from pyexpat import model
+from time import timezone
+import zoneinfo
 from django.conf import settings
 from django.db import models
 from django.forms import CharField
 from datetime import date, datetime, time
+from django.utils import timezone
 # from requests import request
 
 # Create your models here.
@@ -34,8 +37,7 @@ class gyujtes(models.Model):
     # utólagos kiegészítés
     jelenleg = models.IntegerField(default=0)
     # dátum és idő hozzáadása
-    datum = models.DateField(default=date.today())
-    ido = models.TimeField(default=datetime.now().time())
+    datumIdo_UTC = models.DateTimeField(default=timezone.now())
     # cel datum és idő hozzáadása
     celDatum = models.DateTimeField(null=True)
 
@@ -55,8 +57,7 @@ class fizetes(models.Model):
     mennyit = models.IntegerField()
     megjegyzes = models.CharField(null=True, max_length=255)
     # dátum és idő
-    datum = models.DateField(default=date.today())
-    ido = models.TimeField(default=datetime.now().time())
+    datumIdo_UTC = models.DateTimeField(default=timezone.now())
 
     class Meta:
         ordering = ["id"]

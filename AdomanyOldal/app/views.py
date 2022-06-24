@@ -20,6 +20,7 @@ from django.contrib.auth.decorators import login_required
 # saját bejelentkezésre
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+from pytz import timezone
 # from more_itertools import first
 # profil szerkeztéshez
 from app.forms import Regisztralas, bankkartya, felhasznaloFrissitForm, gyujtesForm
@@ -27,6 +28,7 @@ from app.models import felhasznalo, fizetes, gyujtes
 # fizetéshez
 from app.forms import fizetesForm
 from datetime import datetime, time, date
+from django.utils import timezone
 #üzenetekhez (messages)
 from django.contrib import messages
 
@@ -337,7 +339,7 @@ def elerteCel_EXT(cel):
     gyujtesEll = gyujtes.objects.get(id=cel)
     if gyujtesEll.cel <= gyujtesEll.jelenleg:
         print("Igen")
-        jelenlegiDatum = datetime.now()
+        jelenlegiDatum = timezone.now()
         gyujtesEll.celDatum = jelenlegiDatum
         gyujtesEll.save()
     else:

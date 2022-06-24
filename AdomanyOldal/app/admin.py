@@ -10,11 +10,11 @@ class felhasznaloAdmin(admin.ModelAdmin):
 
 class gyujtesAdmin(admin.ModelAdmin):
     fields = ["publikalo", "cim", "leiras",
-              "promocios", "minAr", "cel", "jelenleg"]
+              "promocios", "minAr", "cel", "jelenleg", "datumIdo_UTC", "celDatum"]
 
 
 class fizetesAdmin(admin.ModelAdmin):
-    fields = ["ki", "gyujtesnek", "mennyit", "megjegyzes"]
+    fields = ["ki", "gyujtesnek", "mennyit", "megjegyzes", "datumIdo_UTC"]
 
 
 admin.site.register(felhasznalo, felhasznaloAdmin)
