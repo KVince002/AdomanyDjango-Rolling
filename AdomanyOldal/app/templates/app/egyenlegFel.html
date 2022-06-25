@@ -8,7 +8,7 @@
 {% if user.is_authenticated %}
 <h1 id="oldalcim">Üdvözöllek {{felhasznaloAlapertelmezett.first_name}} más néven,
     {{felhasznaloAlapertelmezett.username}} </h1>
-<!-- mdl-tabs mostnár layout-->>
+<!-- mdl-tabs mostnár layout-->
 <div id="doboz" clas="mdl-grid">
     <table>
         <form action="" method="post">
@@ -22,6 +22,16 @@
                     <input type="submit" value="Feltöltés" class="mdl-button mdl-js-button mdl-button--raised">
                 </td>
             </tr>
+
+      {% if form.errors %}
+      {% for field in form %}
+             {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                         <strong>{{ error|escape }}</strong>
+                    </div>
+             {% endfor %}
+      {% endfor %}
+{% endif %}
         </form>
     </table>
 </div>

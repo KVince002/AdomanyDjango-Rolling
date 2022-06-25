@@ -1,4 +1,5 @@
 from ast import If
+from curses import use_default_colors
 import email
 from email import message
 from pyexpat.errors import messages

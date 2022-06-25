@@ -90,7 +90,8 @@ class gyujtesForm(ModelForm):
         model = gyujtes
         fields = ["cim", "leiras", "promocios", "minAr", "cel"]
 
-    cim = forms.CharField(label="Cim")
+    cim = forms.CharField(label="Cim", error_messages={
+                          'requied': "Kérlek add megy a gyűjtés címét!"})
     leiras = forms.CharField(widget=forms.Textarea,
                              label="Adjon meg egy részletes leírást")
     promocios = forms.BooleanField(
@@ -100,10 +101,10 @@ class gyujtesForm(ModelForm):
     cel = forms.IntegerField(
         label="Mennyit szeretne elérni a gyűjtésével?", min_value=1)
 
-    def __init__(self, *args, **kwargs) -> None:
-        super(gyujtesForm, self).__init__(*args, **kwargs)
-        for visible in self.visible_fields():
-            visible.field.widget.attrs["class"] = "form-control"
+    # def __init__(self, *args, **kwargs) -> None:
+    #     super(gyujtesForm, self).__init__(*args, **kwargs)
+    #     for visible in self.visible_fields():
+    #         visible.field.widget.attrs["class"] = "form-control"
 
     def __str__(self) -> str:
         return super().__str__()
