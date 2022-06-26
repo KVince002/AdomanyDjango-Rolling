@@ -2,6 +2,7 @@ from dataclasses import fields
 import email
 from pickle import FALSE
 from pyexpat import model
+from random import choices
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -12,10 +13,12 @@ from django.forms.forms import Form
 from django.db import models
 from django.forms import ModelForm
 from django.http import HttpRequest
+from tomlkit import datetime
 #from requests import request
 #from requests import request
 # from django.core import MinValueValidator
 from app.models import felhasznalo, gyujtes
+from datetime import date
 
 
 class Regisztralas(UserCreationForm):
@@ -113,10 +116,38 @@ class gyujtesForm(ModelForm):
 
 
 class bankkartya(forms.Form):
+    honapok = (
+        (1, 1),
+        (2, 2),
+        (3, 3),
+        (4, 4),
+        (5, 5),
+        (6, 6),
+        (7, 7),
+        (8, 8),
+        (9, 9),
+        (10, 10),
+        (11, 11),
+        (12, 12),
+    )
+    evek = (
+        (date.today().year, date.today().year),
+        (date.today().year+1, date.today().year+1),
+        (date.today().year+2, date.today().year+2),
+        (date.today().year+3, date.today().year+3),
+        (date.today().year+4, date.today().year+4),
+        (date.today().year+5, date.today().year+5),
+        (date.today().year+6, date.today().year+6),
+        (date.today().year+7, date.today().year+7),
+        (date.today().year+8, date.today().year+8),
+    )
+
     szam = forms.CharField(max_length=16, required=True, label="Kártya száma")
     tulaj = forms.CharField(required=True, label="Kártya birtokos")
-    lejarat = forms.CharField(
-        required=True, label="Lejárat (csak a négyszám elválasztás nélkül)", max_length=4)
+    lejarat_Honap = forms.ChoiceField(
+        choices=honapok, label="Lejárat hónapja", required=True, )
+    lejarat_Ev = forms.ChoiceField(
+        choices=evek, label="Lejárat éve", required=True,)
     cvkod = forms.CharField(
         required=True, label="Biztonsági szám", max_length=3)
     osszeg = forms.IntegerField(required=True)

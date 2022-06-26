@@ -1,9 +1,11 @@
 from ast import If
+from calendar import month
 from curses import use_default_colors
 import email
 from email import message
 from pyexpat.errors import messages
 from re import template
+from stat import FILE_ATTRIBUTE_NORMAL
 from urllib.request import Request
 import django
 from django.shortcuts import render, redirect
@@ -166,12 +168,18 @@ def egyenlegFel(request):
                 becenev=request.user.id)
             egyenlegJelenleg = felhasznaloJelenleg.egyenleg
             egyenlegUj = egyenlegJelenleg+egyenlegHozzaAd
-            # model frissítése
-            felhasznaloFrissit = felhasznalo.objects.filter(
-                becenev=request.user.id).update(egyenleg=egyenlegUj)
-            # mentés
-            egyenlegModositott = felhasznalo.objects.get(
-                becenev=request.user.id)
+
+            # bankkártya ellenőrzése lejárat alapján
+            lejarat_Ev = int(feltoltes.cleaned_data["lejarat_Ev"])
+            lejarat_Honap = int(feltoltes.cleaned_data["lejarat_Honap"])
+            if lejarat_Honap >= date.today().month and lejarat_Ev >= date.today().year:
+                # model frissítése
+                felhasznaloFrissit = felhasznalo.objects.filter(
+                    becenev=request.user.id).update(egyenleg=egyenlegUj)
+                # mentés
+                egyenlegModositott = felhasznalo.objects.get(
+                    becenev=request.user.id)
+
             if egyenlegModositott.egyenleg > egyenlegJelenleg:
                 return redirect("profil")
     else:
