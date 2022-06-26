@@ -1,4 +1,5 @@
 from ast import If
+from asyncio.format_helpers import _format_callback_source
 from calendar import month
 from curses import use_default_colors
 import email
@@ -9,7 +10,7 @@ from stat import FILE_ATTRIBUTE_NORMAL
 from urllib.request import Request
 import django
 from django.shortcuts import render, redirect
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 # W3Schools szerint
 from django.template import loader
 # regisztálás form
@@ -339,6 +340,37 @@ def gyujtesStat(request):
         print(gyujtesek)
         print(len(gyujtesek))
     return render(request, "templates/app/gyujtesStatisztika.html", {"cim": "Adok neki! - Gyűjtés és fizetés statisztikák", "fizetesek": fizetesek, "gyujtesek": gyujtesek})
+
+
+def egyenlegLe(request):
+    if request.method == "POST":
+        letoltes = bankkartya(request.POST)
+        if letoltes.is_valid():
+            egyenlegLevetel = letoltes.cleaned_data["osszeg"]
+            felhasznaloJelenleg = felhasznalo.objects.get(
+                becenev=request.user.id)
+            egyenlegJelenleg = int(felhasznaloJelenleg.egyenleg)
+            # bankkártya ellenőrzése lejárat alapján
+            lejarat_Ev = int(letoltes.cleaned_data["lejarat_Ev"])
+            lejarat_Honap = int(letoltes.cleaned_data["lejarat_Honap"])
+            if lejarat_Honap >= date.today().month and lejarat_Ev >= date.today().year and egyenlegJelenleg >= egyenlegLevetel:
+                # model frissítése
+                egyenlegUj = egyenlegJelenleg-egyenlegLevetel
+                felhasznaloFrissit = felhasznalo.objects.filter(
+                    becenev=request.user.id).update(egyenleg=egyenlegUj)
+                # mentés
+                egyenlegModositott = felhasznalo.objects.get(
+                    becenev=request.user.id)
+                # továbbküldés
+                return redirect("profil")
+            else:
+                uzenet = "Hiba történt a visszautalásnál! Próbálja meg újra!"
+                redirect("egyenlegLe")
+
+    else:
+        letoltes = bankkartya(request.POST)
+        uzenet = ""
+    return render(request, "templates/app/egyenlegLe.html", {"cim": "Adok neki! - Egyenleg visszautalás", "form": letoltes, "uzenet": uzenet})
 
 # * Az "EXT" függvényeket meghívásra vannak létrehozva
 
