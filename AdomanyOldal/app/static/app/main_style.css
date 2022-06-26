@@ -1,80 +1,92 @@
 /*navigációssáv*/
-.mdl-layout__header{
-  background-color: #420420; /* mém szám */
+.mdl-layout__header {
+  background-color: #420420;
+  /* mém szám */
 }
 
 /* mdl "doboz" */
-.mdl-layout__container{
-    position: fixed;
+.mdl-layout__container {
+  position: fixed;
   width: 100%;
   top: 0px;
 }
 
 /* alapértelmezett */
-body{
+body {
   background-color: #696969;
 }
 
-#oldalcim{
+#oldalcim {
   color: white;
   font-weight: 700;
   padding: 10px;
 }
-p{
+
+p {
   text-align: justify;
 }
-#kezdolapVissza{
+
+#kezdolapVissza {
   color: white;
-  text-decoration-line:none;
+  text-decoration-line: none;
 }
-#mentes-ugras{
+
+#mentes-ugras {
   color: black;
-  border:solid black;
+  border: solid black;
   text-decoration-line: none;
   padding: 5px;
   background-color: white;
 }
-#doboz{
+
+#doboz {
   background-color: white;
   padding: 10px;
   box-shadow: 5px 5px 5px black;
 }
-#ugras{
+
+#ugras {
   color: white;
   text-decoration-line: none;
 }
-.menu{
+
+.menu {
   box-shadow: 5px 5px 5px;
   /*
   Nem szükséges, mert nem tűnik esztétikusnak
   border-top: solid;
   */
 }
-table{
+
+table {
   /*mdl?*/
-  width:-moz-available
+  width: -moz-available
 }
-.navbar{
+
+.navbar {
   box-shadow: 0px 5px 5px;
 }
-#menu{
+
+#menu {
   display: flex;
   justify-content: space-evenly;
   flex-direction: row;
   align-items: center;
 }
 
-#kartyak{
+#kartyak {
   display: flex;
   flex-direction: row;
-  align-content:space-evenly;
-  align-items:center;
+  align-content: space-evenly;
+  align-items: center;
   justify-content: center;
   padding: 5px;
 }
-.mdl-card{
+
+.mdl-card {
   margin: auto;
 }
+
 /*
 ~~átmenetileg kivéve
 
@@ -92,65 +104,70 @@ table{
   max-height: 300px;
 }
 */
-#elvalaszto{
+#elvalaszto {
   color: gray;
   background-color: gray;
 }
 
-.navbar-nav .nav-item{
+.navbar-nav .nav-item {
   padding: 0 10px 0 10px;
 }
 
 /* Rólunk */
-#tartalom{
+#tartalom {
   background-color: white;
   padding: 30px;
   width: 80%;
   box-shadow: 5px 5px 5px black;
-  position:fixed;
-  top:inherit;
-  height:max-content;
+  position: fixed;
+  top: inherit;
+  height: max-content;
 }
 
 /* regisztáció */
-#RegisztralBlokk{
+#RegisztralBlokk {
   background-color: white;
   padding: 10px;
   box-shadow: 5px 5px 5px;
-  width: 80%;
+  width: 100%;
 }
 
 /* profil */
-#profilAdatok{
+#profilAdatok {
   background-color: white;
   border-radius: 5px;
   box-shadow: 5px 5px;
 }
-#lehetosegek{
-    background-color: white;
+
+#lehetosegek {
+  background-color: white;
   border-radius: 5px;
   box-shadow: 5px 5px;
 }
-#dobozcim{
+
+#dobozcim {
   padding: 5px 5px 0px;
 }
-#segitseg{
+
+#segitseg {
   padding: 0 5px;
 }
-.menu{
+
+.menu {
   display: flex;
   flex-direction: row;
   align-items: center;
   align-content: center;
   justify-content: space-evenly;
 }
-#kijelentkezes{
+
+#kijelentkezes {
   color: white;
   padding: 10px;
 }
 
 /* Profil szerkesztés */
-.SpecialSzerk{
+.SpecialSzerk {
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -159,25 +176,27 @@ table{
 }
 
 /* kezdőlap */
-#oldalcim02_Promo{
+#oldalcim02_Promo {
   padding: 0px 0px 5px 5px;
   font-style: italic;
   color: white;
 }
-#koszonto{
+
+#koszonto {
   display: flex;
   align-content: center;
-  align-items:baseline;
-  flex-direction:row;
+  align-items: baseline;
+  flex-direction: row;
 }
-#bejelentkezettFelh{
+
+#bejelentkezettFelh {
   color: white;
   font-size: 20px;
   padding: 0 0 0 5px;
 }
 
 /* gyűjtés statisztika*/
-#oldal_dobozVER{
+#oldal_dobozVER {
   display: flex;
   flex-direction: row;
   align-items: stretch;
@@ -185,28 +204,31 @@ table{
   align-content: safe;
   padding: 5px;
 }
-#oldal_dobozVER #doboz{
+
+#oldal_dobozVER #doboz {
   width: 49%;
 }
 
-@media screen and (max-width: 600px){
-  #koszonto{
-  display: flex;
-  align-content: center;
-  align-items:baseline;
-  flex-direction:column;
+@media screen and (max-width: 600px) {
+  #koszonto {
+    display: flex;
+    align-content: center;
+    align-items: baseline;
+    flex-direction: column;
   }
-  #kartyak{
-  display: flex;
-  flex-direction: column;
-  align-content:space-around;
-  align-items:center;
-  justify-content: center;
-  padding: 5px;
-  width: 100%;
+
+  #kartyak {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    width: 100%;
   }
-  .mdl-card{
-    margin:auto;
+
+  .mdl-card {
+    margin: auto;
     box-shadow: 0 5px 5px
   }
 }
