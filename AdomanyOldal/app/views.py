@@ -173,19 +173,22 @@ def egyenlegFel(request):
             # bankkártya ellenőrzése lejárat alapján
             lejarat_Ev = int(feltoltes.cleaned_data["lejarat_Ev"])
             lejarat_Honap = int(feltoltes.cleaned_data["lejarat_Honap"])
-            if lejarat_Honap >= date.today().month and lejarat_Ev >= date.today().year:
+            if lejarat_Honap >= date.today().month and lejarat_Ev >= date.today().year and egyenlegHozzaAd >= 1:
                 # model frissítése
                 felhasznaloFrissit = felhasznalo.objects.filter(
                     becenev=request.user.id).update(egyenleg=egyenlegUj)
                 # mentés
                 egyenlegModositott = felhasznalo.objects.get(
                     becenev=request.user.id)
-
-            if egyenlegModositott.egyenleg > egyenlegJelenleg:
                 return redirect("profil")
+
+            else:
+                uzenet = "Hiba történt a visszautalásnál! Próbálja meg újra!"
+                redirect("egyenlegFel")
     else:
         feltoltes = bankkartya(request.POST)
-    return render(request, "templates/app/egyenlegFel.html", {"cim": "Adok neki! - Egyenleg feltöltés", "form": feltoltes})
+        uzenet = ""
+    return render(request, "templates/app/egyenlegFel.html", {"cim": "Adok neki! - Egyenleg feltöltés", "form": feltoltes, "uzenet": uzenet})
 
 
 def ujGyujtes(request):
@@ -350,6 +353,7 @@ def egyenlegLe(request):
             felhasznaloJelenleg = felhasznalo.objects.get(
                 becenev=request.user.id)
             egyenlegJelenleg = int(felhasznaloJelenleg.egyenleg)
+
             # bankkártya ellenőrzése lejárat alapján
             lejarat_Ev = int(letoltes.cleaned_data["lejarat_Ev"])
             lejarat_Honap = int(letoltes.cleaned_data["lejarat_Honap"])
