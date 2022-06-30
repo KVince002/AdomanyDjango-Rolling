@@ -252,12 +252,6 @@ def ujGyujtes(request):
     return render(request, "templates/app/ujGyujtes.html", {"cim": "Adok neki! - Egyenleg feltöltés", "form": UjGyujtes, "FelhasznaloAlapertelmezett": FelhasznaloAlapertelmezett})
 
 
-def gyujtesStat(request):
-
-    FelhasznaloAlapertelmezett = request.user
-    return render(request, "templates/app/gyujtesStat.html", {"cim": "Adok neki! - Egyenleg feltöltés", "FelhasznaloAlapertelmezett": FelhasznaloAlapertelmezett})
-
-
 def gyujtesReszlet(request, gyujtesID):
     print(f"gyujtesReszlet pramétere: {gyujtesID}")
     gyujtesID = gyujtesID
