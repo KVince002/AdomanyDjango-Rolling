@@ -115,7 +115,24 @@ table {
 a{
   color: #8bc34a;
 }
+
+#alDoboz{
+  box-shadow: 0 5px 5px;
+  background-color: whitesmoke;
 }
+
+#duplaDoboz{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: row;
+  align-items: center;
+  align-content:center;
+  margin: auto;
+}
+.card-title{
+  padding: 5px;
+}
+
 /* Rólunk */
 #tartalom {
   background-color: white;
@@ -211,7 +228,13 @@ a{
 #oldal_dobozVER #doboz {
   width: 49%;
 }
+.kiemelt{
+  font-size:24px;
+  font-weight: 700;
+  padding: 10px;
+}
 
+/*media screen*/
 @media screen and (max-width: 600px) {
   #koszonto {
     display: flex;

@@ -2,67 +2,94 @@
 
 {% block content %}
 
-<!-- Oldal tartalma -->
+    <!-- Oldal tartalma -->
 
-<!-- Be van e jelentkezve ellenőrzés -->
-{% if user.is_authenticated %}
-<!-- mdl-tabs mostnár layout-->>
-<div id="oldal_dobozVER">
-    <div id="doboz">
-        <h3 id="dobozcim">Statisztikák</h3>
-        {% if fizetes == "Ön még nem adományozott semmilyen célnak eddig."%}
-        <p id="hiba">{{fizetesek}}</p>
-        {%else%}
-        <table>
-            <thead>
-                <th>
-                <td>Gyűjtésnek</td>
-                <td>Összeg (fabatka)</td>
-                <td>Megjegyzés</td>
-                <td>Dátum</td>
-                </th>
-            </thead>
-            <tbody>
-                {%for i in fizetesek%}
-                <tr>
-                    <td>{{i.gyujtesnek}}</td>
-                    <td>{{i.mennyit}}</td>
-                    <td>{{i.megjegyzes}}</td>
-                </tr>
-                {%endfor%}
-            </tbody>
-        </table>
-        {%endif%}
+    <!-- Be van e jelentkezve ellenőrzés -->
+        {% if user.is_authenticated %}
+        <!-- mdl-tabs mostnár layout-->
+        <div id="doboz">
+            <h3 id="dobozcim">Statisztikák</h3>
+            <div id="duplaDoboz">
+            <div id="alDoboz">
+                {% if fizetes == "Ön még nem adományozott semmilyen célnak eddig." %}
+                    <p class="bg-warning">{{ fizetesek }}</p>
+                    </div>
+                {% else %}
+                    <div id="kiskartya">
+                        <div class="card">
+                            <div class="crad-body">
+                                <h3 class="card-title">Összesen ennyit költöttél:</h3>
+                                <p class="crad-text kiemelt">{{ osszesKoltes }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                                <th>Gyűjtésnek</th>
+                                <th>Összeg (fabatka)</th>
+                                <th>Megjegyzés</th>
+                                <th>Dátum</th>
+                        </thead>
+                        <tbody>
+                            {% for i in fizetesek %}
+                                <tr>
+                                    <td>{{ i.gyujtesnek }}</td>
+                                    <td>{{ i.mennyit }}</td>
+                                    <td>{{ i.megjegyzes }}</td>
+                                    <td>{{i.datumIdo_UTC}}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+            <div id="alDoboz">
+                {% if gyujtesek == "Ön még nem hozott létre egy gyűjtést sem." %}
+                    <p class="bg-warning">{{ gyujtesek }}</p>
+                    </div>
+                {% else %}
+                    <div id="kiskartya">
+                        <div class="card">
+                            <div class="crad-body">
+                                <h3 class="card-title">Űjtések amik elérték a célt:</h3>
+                                <table>
+                                    <tbody>
+                                        {% for i,j in elerteACelt %}
+                                            <tr>
+                                                <td>i</td>
+                                                <td>j</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                                <th>Név</th>
+                                <th>Cél</th>
+                                <th>Jelenleg</th>
+                        </thead>
+                        <tbody>
+                            {% for i in gyujtesek %}
+                                <tr>
+                                    <td>{{ i.cim }}</td>
+                                    <td>{{ i.cel }}</td>
+                                    <td>{{ i.jelenleg }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    <div id="doboz">
-        {% if gyujtesek == "Ön még nem hozott létre egy gyűjtést sem."%}
-        <p id="hiba">{{gyujtesek}}</p>
-        {% else %}
-        <table>
-            <thead>
-                <th>
-                <td>Név</td>
-                <td>Cél</td>
-                <td>Jelenleg</td>
-                </th>
-            </thead>
-            <tbody>
-                {%for i in gyujtesek%}
-                <tr>
-                    <td>{{i.cim}}</td>
-                    <td>{{i.cel}}</td>
-                    <td>{{i.jelenleg}}</td>
-                </tr>
-                {%endfor%}
-            </tbody>
-        </table>
-        {%endif%}
-    </div>
-</div>
-<!--Ha nincs bejelentkezve-->
-{% else %}
-<p id="alternativValasz">Úgy tűnik, hogy nem vagy bejelentkezve! <a href="{% url 'bejelentkezes' %}">Jelentkezz be</a>
-    az oldal megtekintéséhez!</p>
-{% endif %}
+        <!--Ha nincs bejelentkezve-->
+    {% else %}
+        <p id="alternativValasz">Úgy tűnik, hogy nem vagy bejelentkezve!
+            <a href="{% url 'bejelentkezes' %}">Jelentkezz be</a>
+            az oldal megtekintéséhez!</p>
+    {% endif %}
 
 {% endblock %}

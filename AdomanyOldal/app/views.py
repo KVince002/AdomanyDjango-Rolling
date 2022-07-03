@@ -318,7 +318,7 @@ def gyujtesStat(request):
         print(i.id)
     print("fizetesek ==0?")
     if len(fizetesek) == 0:
-        print("aha")
+        print("üres")
         fizetesek = "Ön még nem adományozott semmilyen célnak eddig."
     else:
         print("ha nem")
@@ -330,13 +330,27 @@ def gyujtesStat(request):
         print(i.id)
     print("gyujtesek ==0?")
     if len(gyujtesek) == 0:
-        print("aha")
+        print("üres")
         gyujtesek = "Ön még nem hozott létre egy gyűjtést sem."
     else:
         print("ha nem")
         print(gyujtesek)
         print(len(gyujtesek))
-    return render(request, "templates/app/gyujtesStatisztika.html", {"cim": "Adok neki! - Gyűjtés és fizetés statisztikák", "fizetesek": fizetesek, "gyujtesek": gyujtesek})
+
+    #egyéb adatok a kiskártyákhoz
+    osszesKoltes = 0
+    for i in fizetes.objects.filter(ki=UserModel.id):
+        osszesKoltes += i.mennyit
+        print(f"részeredmény {osszesKoltes}")
+    print(f"Ennyit fizetett eddig: {osszesKoltes}")
+
+    elerteACelt = {}
+    for i in gyujtes.objects.filter(publikalo=UserModel.id):
+        if i.celDatum != null:
+            elerteACelt[i.id] = i.celDatum
+    print(elerteACelt)
+
+    return render(request, "templates/app/gyujtesStatisztika.html", {"cim": "Adok neki! - Gyűjtés és fizetés statisztikák", "fizetesek": fizetesek, "gyujtesek": gyujtesek, "elerteACelt": elerteACelt, "osszesKoltes": osszesKoltes})
 
 
 def egyenlegLe(request):
