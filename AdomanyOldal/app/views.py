@@ -350,7 +350,13 @@ def gyujtesStat(request):
             elerteACelt[i.id] = i.celDatum
     print(elerteACelt)
 
-    return render(request, "templates/app/gyujtesStatisztika.html", {"cim": "Adok neki! - Gyűjtés és fizetés statisztikák", "fizetesek": fizetesek, "gyujtesek": gyujtesek, "elerteACelt": elerteACelt, "osszesKoltes": osszesKoltes})
+    osszesVisszautalas = int(0)
+    visszautalasModel = visszautalas.objects.filter(ki=UserModel.id)
+    for i in visszautalasModel:
+        osszesVisszautalas += int(i.mennyit)
+    print(f"Összesen ennyit utalt vissza {osszesVisszautalas}")
+
+    return render(request, "templates/app/gyujtesStatisztika.html", {"cim": "Adok neki! - Gyűjtés és fizetés statisztikák", "fizetesek": fizetesek, "gyujtesek": gyujtesek, "elerteACelt": elerteACelt, "osszesKoltes": osszesKoltes, "osszesVisszautalas": osszesVisszautalas})
 
 
 def egyenlegLe(request):

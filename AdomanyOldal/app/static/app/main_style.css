@@ -123,11 +123,9 @@ a{
 
 #duplaDoboz{
   display: flex;
-  justify-content: space-evenly;
   flex-direction: row;
-  align-items: center;
-  align-content:center;
-  margin: auto;
+  align-items: stretch;
+  justify-content: space-around;
 }
 .card-title{
   padding: 5px;
@@ -233,6 +231,13 @@ a{
   font-weight: 700;
   padding: 10px;
 }
+.kiskartyak_Div{
+  display: flex;
+  justify-content: space-evenly;
+  margin: auto;
+  flex-direction: column;
+  padding: 10px;
+}
 
 /*media screen*/
 @media screen and (max-width: 600px) {
@@ -256,5 +261,11 @@ a{
   .mdl-card {
     margin: auto;
     box-shadow: 0 5px 5px
+  }
+  #duplaDoboz{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: auto;
   }
 }
