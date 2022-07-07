@@ -28,7 +28,7 @@ from pytz import timezone
 # from more_itertools import first
 # profil szerkeztéshez
 from app.forms import Regisztralas, bankkartya, felhasznaloFrissitForm, gyujtesForm
-from app.models import felhasznalo, fizetes, gyujtes
+from app.models import felhasznalo, fizetes, gyujtes, visszautalas
 # fizetéshez
 from app.forms import fizetesForm
 from datetime import datetime, time, date
@@ -337,7 +337,7 @@ def gyujtesStat(request):
         print(gyujtesek)
         print(len(gyujtesek))
 
-    #egyéb adatok a kiskártyákhoz
+    # egyéb adatok a kiskártyákhoz
     osszesKoltes = 0
     for i in fizetes.objects.filter(ki=UserModel.id):
         osszesKoltes += i.mennyit
@@ -346,7 +346,7 @@ def gyujtesStat(request):
 
     elerteACelt = {}
     for i in gyujtes.objects.filter(publikalo=UserModel.id):
-        if i.celDatum != null:
+        if i.celDatum != None:
             elerteACelt[i.id] = i.celDatum
     print(elerteACelt)
 
@@ -373,6 +373,11 @@ def egyenlegLe(request):
                 # mentés
                 egyenlegModositott = felhasznalo.objects.get(
                     becenev=request.user.id)
+                # visszautalás mentése model-be
+                UserModel = User.objects.get(id=request.user.id)
+                visszautalModel = visszautalas.objects.create(
+                    ki=UserModel, mennyit=egyenlegLevetel, datumIdo_UTC=timezone.now())
+                visszautalModel.save()
                 # továbbküldés
                 return redirect("profil")
             else:

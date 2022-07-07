@@ -64,3 +64,15 @@ class fizetes(models.Model):
 
     def __str__(self) -> str:
         return super().__str__()
+
+
+class visszautalas(models.Model):
+    ki = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    mennyit = models.IntegerField()
+    datumIdo_UTC = models.DateTimeField(default=timezone.now())
+
+    class Meta:
+        ordering = ["id"]
+
+    def __str__(self) -> str:
+        return super().__str__()
