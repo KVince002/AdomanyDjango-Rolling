@@ -35,6 +35,7 @@ urlpatterns = [
          views.gyujtesReszlet, name="gyujtes"),
     path("gyujtesStat/", views.gyujtesStat, name="gyujtesStat"),
     path("egyenlegLe/", views.egyenlegLe, name="egyenlegLe"),
+    # path(""),
     path("kijelentkezes/", views.logout_request, name="kijelentkezes"),
     path('admin/', admin.site.urls),
 
