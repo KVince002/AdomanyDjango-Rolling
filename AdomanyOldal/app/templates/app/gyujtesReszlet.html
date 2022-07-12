@@ -3,10 +3,12 @@
 {% block content %}
 
 <div id="koszonto">
-    <h1 id="oldalcim">{{gyujtesReszletek.cim}}</h1><span id="bejelentkezettFelh">{{gyujtesReszletek.publikalo}}</span>
+    <h1 id="oldalcim">{{gyujtesReszletek.cim}}</h1>
+    <span id="bejelentkezettFelh">{{gyujtesReszletek.publikalo}}</span>
 </div>
 <!-- Be van e jelentkezve ellenőrzés -->
 {% if user.is_authenticated %}
+<a href=""></a>
 <div id="doboz">
     <div id="leiras">
         <span>{{gyujtesReszletek.leiras}}</span>
